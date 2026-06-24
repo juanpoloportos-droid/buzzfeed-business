@@ -153,6 +153,15 @@
             margin: 10px 0;
         }
 
+        /* Dedicated Video Ad Display Block */
+        #premium-video-ad {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+        }
+
         .status-tracker {
             text-align: center;
             font-size: 1.1rem;
@@ -184,6 +193,11 @@
     <div class="master-layout">
         
         <main class="video-column" id="matrix-video-stream">
+            
+            <div id="premium-video-ad">
+                <script async src="https://js.mbidadm.com/static/scripts.js" data-admpid="445962"></script>
+            </div>
+
             <div class="status-tracker" id="system-status">Initializing stream array...</div>
         </main>
 
@@ -252,7 +266,8 @@
                     throw new Error("Empty Feed Structural Payload");
                 }
 
-                viewport.innerHTML = ''; 
+                const statusIndicator = document.getElementById('system-status');
+                if (statusIndicator) statusIndicator.remove(); 
                 let streamIdx = 0;
 
                 for (let i = 0; i < resourceItems.length; i++) {
@@ -283,7 +298,9 @@
         }
 
         function loadFailsafeFallback(container) {
-            container.innerHTML = ''; 
+            const statusIndicator = document.getElementById('system-status');
+            if (statusIndicator) statusIndicator.remove(); 
+            
             FAILSAFE_DATA_MATRIX.forEach((mockNode, orderIdx) => {
                 const canvasId = `fluid-failsafe-node-${orderIdx}`;
                 injectMediaPod(container, canvasId, mockNode.title, mockNode.description, mockNode.video, mockNode.poster, orderIdx);
@@ -340,7 +357,7 @@
         window.onload = assembleStreamEngine;
     </script>
 
-    <script src="https://pl29875108.effectivecpmnetwork.com/66/ab/3b/66ab3b3507ed270236e250d00e419ea8.js"></script>
+    <script src="https://pl29875108.effectivecpmnetwork.com/0b/fc/e5/0bfce521d2c907f7c00e045b5b36a268.js"></script>
 
 </body>
 </html>
