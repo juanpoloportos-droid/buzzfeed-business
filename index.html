@@ -5,55 +5,199 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Streaming Engine | Viral Technology Node</title>
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- FluidPlayer CDN -->
     <link rel="stylesheet" href="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.css" type="text/css"/>
     <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
 
     <style>
         :root {
-            --canvas-black: #050508;
-            --surface-slate: #11131c;
-            --neon-matrix: #00ffd5;
-            --neon-dim: #009982;
+            --canvas-black: #050509;
+            --bg-base: #050509;
+            --bg-surface: rgba(13, 16, 27, 0.7);
+            --bg-surface-solid: #0d0f1b;
+            --bg-card: rgba(18, 22, 38, 0.6);
+            --bg-card-hover: rgba(24, 30, 52, 0.85);
+            
+            --color-primary: #00ffd5;      /* Cyan matrix */
+            --color-primary-glow: rgba(0, 255, 213, 0.25);
+            --color-secondary: #bd00ff;    /* Purple */
+            --color-secondary-glow: rgba(189, 0, 255, 0.2);
+            --color-accent: #ff007f;       /* Pink */
+            
             --text-high: #ffffff;
-            --text-low: #7c8599;
+            --text-medium: #8e98b0;
+            --text-low: #545c70;
+            
+            --border-color: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(0, 255, 213, 0.08);
+            --border-glow-hover: rgba(0, 255, 213, 0.3);
+            
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--canvas-black);
+            font-family: var(--font-sans);
+            background: radial-gradient(circle at 50% 0%, #0c0f20 0%, #050509 80%);
             color: var(--text-high);
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.5;
         }
 
-        header {
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060713;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 213, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 213, 0.4);
+        }
+
+        /* Sticky Glassmorphic Header */
+        .glass-header {
             width: 100%;
-            background-color: #0c0d14;
-            padding: 22px 0;
-            text-align: center;
-            border-bottom: 2px solid var(--neon-matrix);
-            box-shadow: 0 4px 35px rgba(0, 255, 213, 0.12);
+            background: rgba(12, 14, 24, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 255, 213, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 255, 213, 0.05);
         }
 
-        header h1 {
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .live-indicator-pulse {
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-primary);
+            animation: pulse-ring 1.8s infinite;
+        }
+
+        .brand h1 {
             margin: 0;
-            font-size: 1.9rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
             font-weight: 900;
             letter-spacing: 0.5px;
+            color: #fff;
         }
 
-        header h1 span {
-            color: var(--neon-matrix);
+        .brand h1 span {
+            color: var(--color-primary);
             text-shadow: 0 0 12px rgba(0, 255, 213, 0.4);
         }
 
+        .network-telemetry {
+            display: flex;
+            gap: 16px;
+        }
+
+        .telemetry-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+        }
+
+        .pill-label {
+            color: var(--text-low);
+        }
+
+        .pill-value {
+            color: var(--text-high);
+            font-weight: 700;
+        }
+
+        .glow-text {
+            color: var(--color-primary);
+            text-shadow: 0 0 6px var(--color-primary-glow);
+        }
+
+        /* Card Glow Layout */
+        .card-glow {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+        }
+
+        .card-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(0, 255, 213, 0.06), transparent 40%);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card-glow:hover {
+            border-color: rgba(0, 255, 213, 0.25);
+            box-shadow: 0 12px 40px 0 rgba(0, 255, 213, 0.08), 0 0 0 1px rgba(0, 255, 213, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .card-glow:hover::before {
+            opacity: 1;
+        }
+
+        /* Master Grid Layout */
         .master-layout {
             max-width: 1280px;
             width: 100%;
+            margin: 0 auto;
             padding: 24px;
             box-sizing: border-box;
             display: grid;
@@ -63,72 +207,545 @@
 
         @media (min-width: 992px) {
             .master-layout {
-                grid-template-columns: 3fr 1fr;
+                grid-template-columns: 3fr 1.3fr;
             }
         }
 
         .video-column {
             display: flex;
             flex-direction: column;
-            gap: 35px;
+            gap: 24px;
         }
 
+        /* Control Panel styles */
+        .control-panel {
+            padding: 16px 20px;
+            margin-bottom: 8px;
+        }
+
+        .control-panel-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: var(--text-low);
+            pointer-events: none;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 11px 16px 11px 40px;
+            font-size: 0.9rem;
+            color: var(--text-high);
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.25s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--color-primary);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 10px rgba(0, 255, 213, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 9px 16px;
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .btn-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-high);
+        }
+
+        .filter-btn.active {
+            background: rgba(0, 255, 213, 0.1);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(0, 255, 213, 0.05);
+        }
+
+        .layout-group {
+            display: flex;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 3px;
+        }
+
+        .layout-btn {
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            width: 32px;
+            height: 32px;
+            color: var(--text-low);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .layout-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .layout-btn:hover {
+            color: var(--text-high);
+        }
+
+        .layout-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--color-primary);
+        }
+
+        /* Dynamic Feed Container Mode Settings */
+        .streams-feed-grid {
+            display: grid;
+            gap: 28px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .streams-feed-grid.grid-mode {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .streams-feed-grid.grid-mode {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .streams-feed-grid.list-mode {
+            grid-template-columns: 1fr;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Video Pod styling */
         .video-pod {
-            background-color: var(--surface-slate);
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #1e2333;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-            transition: transform 0.2s ease;
-        }
-
-        .video-pod:hover {
-            transform: translateY(-2px);
-            border-color: #2b334d;
+            display: flex;
+            flex-direction: column;
         }
 
         .player-viewport {
+            position: relative;
             width: 100%;
             aspect-ratio: 16/9;
-            background-color: #000;
+            background: #000;
+        }
+
+        /* Override FluidPlayer Rounded Corners */
+        .fluid_video_wrapper {
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+            overflow: hidden;
+        }
+
+        .pod-badge-overlay {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: var(--font-mono);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .badge-live {
+            background: rgba(0, 255, 213, 0.25);
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(0, 255, 213, 0.2);
+        }
+
+        .badge-failsafe {
+            background: rgba(255, 0, 127, 0.2);
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.1);
+        }
+
+        .badge-resolution {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
         }
 
         .meta-container {
-            padding: 24px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
-        .meta-container h2 {
-            margin: 0 0 12px 0;
-            font-size: 1.45rem;
+        .meta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .meta-header h2 {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
             line-height: 1.35;
             color: #fff;
             font-weight: 700;
         }
 
-        .meta-container p {
-            margin: 0;
-            font-size: 0.98rem;
-            line-height: 1.6;
+        .star-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
             color: var(--text-low);
-        }
-
-        /* Programmatic Ad Space Framework */
-        .ad-inventory-leaderboard {
-            width: 100%;
-            max-width: 728px;
-            min-height: 90px;
-            margin: 20px auto 5px auto;
-            background: #090b12;
+            padding: 4px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
         }
 
-        .ad-inventory-sidebar-stack {
+        .star-btn:hover {
+            color: var(--color-primary);
+            background: rgba(0, 255, 213, 0.08);
+        }
+
+        .star-btn.active {
+            color: #ffd700;
+        }
+
+        .star-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .star-btn:active svg {
+            transform: scale(1.3);
+        }
+
+        .desc-text {
+            margin: 0 0 20px 0;
+            font-size: 0.88rem;
+            line-height: 1.55;
+            color: var(--text-medium);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .meta-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 14px;
+            margin-top: auto;
+        }
+
+        .node-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-low);
+            font-weight: 600;
+        }
+
+        .node-action-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .node-action-btn:hover {
+            background: rgba(0, 255, 213, 0.06);
+            border-color: rgba(0, 255, 213, 0.2);
+            color: var(--color-primary);
+        }
+
+        /* Sidebar Telemetry Block */
+        .sidebar-column {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 28px;
+        }
+
+        .telemetry-card {
+            padding: 20px;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .card-subtitle {
+            font-size: 0.72rem;
+            color: var(--text-low);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .telemetry-wave-wrapper {
+            width: 100%;
+        }
+
+        #oscilloscope {
+            width: 100%;
+            height: 70px;
+            background: #060710;
+            border: 1px solid rgba(0, 255, 213, 0.15);
+            border-radius: var(--radius-sm);
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .metric-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .metric-label {
+            font-size: 0.62rem;
+            color: var(--text-low);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-high);
+        }
+
+        .starred-header {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-low);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 6px;
+        }
+
+        .starred-nodes-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 140px;
+            overflow-y: auto;
+        }
+
+        .starred-node-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+        }
+
+        .star-bullet {
+            color: var(--color-primary);
+            font-size: 0.65rem;
+        }
+
+        .starred-title {
+            color: var(--text-medium);
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex-grow: 1;
+            transition: color 0.15s ease;
+        }
+
+        .starred-title:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        .starred-type-badge {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            padding: 1px 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-medium);
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .empty-starred-text {
+            font-size: 0.75rem;
+            color: var(--text-low);
+            font-style: italic;
+            padding: 4px 0;
+        }
+
+        .telemetry-console {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-primary);
+            background: #060710;
+            border: 1px solid rgba(0, 255, 213, 0.15);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            height: 120px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 10px rgba(0, 255, 213, 0.05);
+        }
+
+        .log-line {
+            margin-bottom: 4px;
+            line-height: 1.4;
+            display: flex;
+            gap: 8px;
+        }
+
+        .log-time {
+            color: var(--text-low);
+            flex-shrink: 0;
+        }
+
+        .log-msg {
+            word-break: break-all;
+        }
+
+        /* Ad Placements Styling integration */
+        .ad-inventory-leaderboard-wrapper {
+            width: 100%;
+            margin: 20px auto 10px auto;
+            max-width: 728px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .ad-sponsored-tag {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--text-low);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .ad-inventory-leaderboard {
+            width: 100%;
+            min-height: 90px;
+            background: #080914;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .ad-sidebar-container {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .ad-sponsored-tag-sidebar {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--text-low);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: left;
         }
 
         .ad-inventory-box {
@@ -136,32 +753,55 @@
             min-height: 250px;
             max-width: 300px;
             margin: 0 auto;
-            background: #090b12;
+            background: #080914;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ad-inventory-inline-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            margin: 12px 0;
+        }
+
+        .ad-sponsored-tag-small {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--text-low);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .ad-inventory-inline {
             width: 100%;
             min-height: 60px;
-            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
         }
 
-        /* Dedicated Video Ad Display Block */
         #premium-video-ad {
             width: 100%;
-            max-width: 100%;
-            margin: 0 auto;
-            display: block;
             text-align: center;
+            background: rgba(0, 255, 213, 0.01);
+            border: 1px solid rgba(0, 255, 213, 0.12);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            box-sizing: border-box;
         }
 
+        /* Dynamic Status & Loader Elements */
         .status-tracker {
             text-align: center;
             font-size: 1.1rem;
@@ -169,58 +809,309 @@
             color: var(--text-low);
             font-weight: 500;
         }
+
+        .quantum-loader {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .loader-ring {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+        }
+
+        .loader-ring:nth-child(1) {
+            border-top-color: var(--color-primary);
+            animation: spin-clockwise 1.2s linear infinite;
+        }
+
+        .loader-ring:nth-child(2) {
+            width: 64px;
+            height: 64px;
+            border-bottom-color: var(--color-secondary);
+            animation: spin-counter-clockwise 1s linear infinite;
+        }
+
+        .loader-ring:nth-child(3) {
+            width: 48px;
+            height: 48px;
+            border-left-color: var(--color-accent);
+            animation: spin-clockwise 0.8s linear infinite;
+        }
+
+        .loader-text {
+            margin-top: 110px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-medium);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 213, 0.2);
+        }
+
+        /* Toast notifications */
+        #toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: rgba(13, 16, 27, 0.9);
+            border: 1px solid rgba(0, 255, 213, 0.2);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            color: var(--text-high);
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            pointer-events: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-icon {
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .toast-error {
+            border-left-color: var(--color-accent);
+            border-color: rgba(255, 0, 127, 0.2);
+        }
+
+        .toast-error .toast-icon {
+            color: var(--color-accent);
+        }
+
+        /* Keyframe Animations */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+
+        @keyframes spin-clockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spin-counter-clockwise {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes pulse-highlight {
+            0% { border-color: var(--color-primary); box-shadow: 0 0 0 0 rgba(0, 255, 213, 0.4); }
+            50% { border-color: var(--color-accent); box-shadow: 0 0 20px 4px rgba(255, 0, 127, 0.6); }
+            100% { border-color: var(--color-primary); box-shadow: 0 0 0 0 rgba(0, 255, 213, 0); }
+        }
+
+        .pulse-highlight {
+            animation: pulse-highlight 2s ease-in-out;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>MATRIX<span>STREAM</span> NODE</h1>
+    <!-- Sticky Glassmorphic Navigation -->
+    <header class="glass-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="live-indicator-pulse"></div>
+                <h1>MATRIX<span>STREAM</span> NODE</h1>
+            </div>
+            
+            <div class="network-telemetry">
+                <div class="telemetry-pill">
+                    <span class="pill-label">STATUS</span>
+                    <span class="pill-value glow-text">ONLINE</span>
+                </div>
+                <div class="telemetry-pill">
+                    <span class="pill-label">LATENCY</span>
+                    <span id="nav-ping-val" class="pill-value">42ms</span>
+                </div>
+                <div class="telemetry-pill">
+                    <span class="pill-label">CORE</span>
+                    <span class="pill-value">98.4%</span>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div class="ad-inventory-leaderboard">
-        <script>
-            atOptions = {
-                'key' : '72e6d9a070d5ad63e97121589c818234',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/72e6d9a070d5ad63e97121589c818234/invoke.js"></script>
+    <!-- Leaderboard Ad Integration -->
+    <div class="ad-inventory-leaderboard-wrapper">
+        <div class="ad-sponsored-tag">COMMERCIAL CARRIER NETWORK (728x90)</div>
+        <div class="ad-inventory-leaderboard">
+            <script>
+                atOptions = {
+                    'key' : '72e6d9a070d5ad63e97121589c818234',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/72e6d9a070d5ad63e97121589c818234/invoke.js"></script>
+        </div>
     </div>
 
+    <!-- Master Layout -->
     <div class="master-layout">
         
-        <main class="video-column" id="matrix-video-stream">
+        <!-- Main Streaming Column -->
+        <main class="video-column">
             
+            <!-- Dashboard Controls -->
+            <div class="control-panel card-glow">
+                <div class="control-panel-row">
+                    <div class="search-box">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="stream-search" placeholder="Filter streams by keywords, titles, description...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-filter="all">All Signals</button>
+                        <button class="filter-btn" data-filter="favorites">
+                            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            Starred
+                        </button>
+                        <button class="filter-btn" data-filter="failsafe">Backup Nodes</button>
+                    </div>
+                    
+                    <div class="layout-group">
+                        <button class="layout-btn active" id="layout-grid" title="Grid View">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </button>
+                        <button class="layout-btn" id="layout-list" title="Focus List View">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Video Ad Slot -->
             <div id="premium-video-ad">
                 <script async src="https://js.mbidadm.com/static/scripts.js" data-admpid="445962"></script>
             </div>
 
-            <div class="status-tracker" id="system-status">Initializing stream array...</div>
-        </main>
-
-        <aside class="ad-inventory-sidebar-stack">
-            <div class="ad-inventory-box">
-                <script>
-                    atOptions = {
-                        'key' : '3e807240d888c9415cd851d315756dfa',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <script src="https://www.highperformanceformat.com/3e807240d888c9415cd851d315756dfa/invoke.js"></script>
+            <!-- Streaming container feed -->
+            <div class="streams-feed-grid grid-mode" id="streams-feed-container">
+                <div class="status-tracker" id="system-status">Initializing stream array...</div>
             </div>
             
-            <div class="ad-inventory-box" style="background: transparent;">
-                <script src="https://pl29875108.effectivecpmnetwork.com/66/ab/3b/66ab3b3507ed270236e250d00e419ea8.js"></script>
+        </main>
+
+        <!-- Right Telemetry & Ads Sidebar -->
+        <aside class="sidebar-column">
+            
+            <!-- Quantum Telemetry Console -->
+            <div class="telemetry-card card-glow">
+                <div class="card-header">
+                    <h3>QUANTUM CORE DIAGNOSTICS</h3>
+                    <span class="card-subtitle">Node Telemetry Active</span>
+                </div>
+                <div class="card-body">
+                    <div class="telemetry-wave-wrapper">
+                        <canvas id="oscilloscope"></canvas>
+                    </div>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-label">CORE TEMP</span>
+                            <span id="telemetry-temp" class="metric-value">42.5 °C</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">NODE LOAD</span>
+                            <span id="telemetry-load" class="metric-value">91.2 %</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">PING LATENCY</span>
+                            <span id="telemetry-ping" class="metric-value">42 ms</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">PROTOCOL</span>
+                            <span class="metric-value">HTTPS (RE)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="starred-header">PINNED SECTORS</div>
+                    <div id="starred-nodes-list" class="starred-nodes-list-container">
+                        <!-- Pinned Items Loaded Dynamically -->
+                    </div>
+                    
+                    <div class="starred-header" style="margin-top: 6px;">EVENT STREAM</div>
+                    <div id="telemetry-logs" class="telemetry-console">
+                        <div class="log-line"><span class="log-time">[00:00:00]</span> <span class="log-msg">Subsystem core initialized...</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ad Stack Column -->
+            <div class="ad-inventory-sidebar-stack">
+                <div class="ad-sidebar-container card-glow">
+                    <div class="ad-sponsored-tag-sidebar">TELEMETRY SPONSOR #1 (300x250)</div>
+                    <div class="ad-inventory-box">
+                        <script>
+                            atOptions = {
+                                'key' : '3e807240d888c9415cd851d315756dfa',
+                                'format' : 'iframe',
+                                'height' : 250,
+                                'width' : 300,
+                                'params' : {}
+                            };
+                        </script>
+                        <script src="https://www.highperformanceformat.com/3e807240d888c9415cd851d315756dfa/invoke.js"></script>
+                    </div>
+                </div>
+                
+                <div class="ad-sidebar-container card-glow" style="background: transparent; border-color: rgba(255,255,255,0.02);">
+                    <div class="ad-sponsored-tag-sidebar">TELEMETRY SPONSOR #2</div>
+                    <div class="ad-inventory-box" style="background: transparent; border-color: rgba(255,255,255,0.02);">
+                        <script src="https://pl29875108.effectivecpmnetwork.com/66/ab/3b/66ab3b3507ed270236e250d00e419ea8.js"></script>
+                    </div>
+                </div>
             </div>
         </aside>
 
     </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
 
     <script>
         const PRIMARY_RSS_STREAM = 'https://corsproxy.io/?url=' + encodeURIComponent('https://chandra.harvard.edu/resources/feeds/podcasts/by_category_misc.html?catid=25');
@@ -247,11 +1138,27 @@
             }
         ];
 
+        // Global State Manager
+        let MASTER_STREAMS_ARRAY = [];
+        let ACTIVE_FILTER = 'all'; // 'all', 'favorites', 'failsafe'
+        let SEARCH_QUERY = '';
+        let VIEW_LAYOUT = 'grid'; // 'grid', 'list'
+
         async function assembleStreamEngine() {
-            const viewport = document.getElementById('matrix-video-stream');
+            const feedContainer = document.getElementById('streams-feed-container');
+            if (feedContainer) {
+                feedContainer.innerHTML = `
+                    <div class="quantum-loader" id="quantum-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-ring"></div>
+                        <div class="loader-ring"></div>
+                        <div class="loader-text">SYNCHRONIZING QUANTUM FEEDS...</div>
+                    </div>
+                `;
+            }
             
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 4000);
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
 
             try {
                 const response = await fetch(PRIMARY_RSS_STREAM, { signal: controller.signal });
@@ -266,8 +1173,7 @@
                     throw new Error("Empty Feed Structural Payload");
                 }
 
-                const statusIndicator = document.getElementById('system-status');
-                if (statusIndicator) statusIndicator.remove(); 
+                MASTER_STREAMS_ARRAY = [];
                 let streamIdx = 0;
 
                 for (let i = 0; i < resourceItems.length; i++) {
@@ -281,83 +1187,457 @@
 
                     if (!mediaSourceUrl) continue; 
 
-                    const titleStr = node.getElementsByTagName("title")[0]?.textContent || "Quantum Observation Broadcaster";
-                    const coreSummary = node.getElementsByTagName("description")[0]?.textContent || "Select processing nodes to update telemetry display elements.";
-                    const canvasId = `fluid-core-node-${streamIdx}`;
+                    // PROTOCOL CORRECTION: Enforce HTTPS rewriting on the payload strings
+                    mediaSourceUrl = mediaSourceUrl.replace("http://", "https://");
 
-                    injectMediaPod(viewport, canvasId, titleStr, coreSummary, mediaSourceUrl, '', streamIdx);
+                    const titleStr = node.getElementsByTagName("title")[0]?.textContent || "Quantum Observation Broadcaster";
+                    let coreSummary = node.getElementsByTagName("description")[0]?.textContent || "Select processing nodes to update telemetry display elements.";
+                    
+                    // Filter XML tags out of description text if present
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = coreSummary;
+                    coreSummary = tempDiv.textContent || tempDiv.innerText || coreSummary;
+
+                    MASTER_STREAMS_ARRAY.push({
+                        id: `core-node-${streamIdx}`,
+                        title: titleStr,
+                        description: coreSummary,
+                        video: mediaSourceUrl,
+                        poster: '',
+                        isFallback: false
+                    });
                     streamIdx++;
                 }
 
-                if (streamIdx === 0) { loadFailsafeFallback(viewport); }
+                if (MASTER_STREAMS_ARRAY.length === 0) { 
+                    loadFailsafeFallback(); 
+                } else {
+                    renderStreamsFeed();
+                    updateStarredListWidget();
+                    showToast('Feeds synced successfully', 'success');
+                }
 
             } catch (networkError) {
                 console.warn("Primary RSS Connection Toggled Failover Protocol: ", networkError.message);
-                loadFailsafeFallback(viewport);
+                loadFailsafeFallback();
             }
         }
 
-        function loadFailsafeFallback(container) {
-            const statusIndicator = document.getElementById('system-status');
-            if (statusIndicator) statusIndicator.remove(); 
-            
+        function loadFailsafeFallback() {
+            MASTER_STREAMS_ARRAY = [];
             FAILSAFE_DATA_MATRIX.forEach((mockNode, orderIdx) => {
-                const canvasId = `fluid-failsafe-node-${orderIdx}`;
-                injectMediaPod(container, canvasId, mockNode.title, mockNode.description, mockNode.video, mockNode.poster, orderIdx);
+                MASTER_STREAMS_ARRAY.push({
+                    id: `failsafe-node-${orderIdx}`,
+                    title: mockNode.title,
+                    description: mockNode.description,
+                    video: mockNode.video,
+                    poster: mockNode.poster,
+                    isFallback: true
+                });
+            });
+            renderStreamsFeed();
+            updateStarredListWidget();
+            showToast('Backup signals engaged', 'error');
+        }
+
+        // Starred Nodes Helper Functions
+        function getFavorites() {
+            try {
+                const stored = localStorage.getItem('matrix_favorites');
+                return stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        // Check if item is favorited
+        function isStarred(id) {
+            return getFavorites().includes(id);
+        }
+
+        function toggleStar(id, event) {
+            if (event) event.stopPropagation();
+            let favorites = getFavorites();
+            const index = favorites.indexOf(id);
+            let starred = false;
+            
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(id);
+                starred = true;
+            }
+            
+            localStorage.setItem('matrix_favorites', JSON.stringify(favorites));
+            
+            const card = document.querySelector(`.video-pod[data-stream-id="${id}"]`);
+            if (card) {
+                const starBtn = card.querySelector('.star-btn');
+                const starIcon = card.querySelector('.star-icon');
+                if (starred) {
+                    starBtn.classList.add('active');
+                    starIcon.setAttribute('fill', 'currentColor');
+                } else {
+                    starBtn.classList.remove('active');
+                    starIcon.setAttribute('fill', 'none');
+                }
+            }
+            
+            showToast(starred ? 'Pinned node to console' : 'Unpinned node', 'success');
+            
+            if (ACTIVE_FILTER === 'favorites') {
+                renderStreamsFeed();
+            }
+            updateStarredListWidget();
+        }
+
+        function updateStarredListWidget() {
+            const listContainer = document.getElementById('starred-nodes-list');
+            if (!listContainer) return;
+            
+            listContainer.innerHTML = '';
+            const favorites = getFavorites();
+            
+            if (favorites.length === 0) {
+                listContainer.innerHTML = `<div class="empty-starred-text">No sectors pinned. Star a node feed to begin.</div>`;
+                return;
+            }
+            
+            favorites.forEach(id => {
+                const stream = MASTER_STREAMS_ARRAY.find(s => s.id === id);
+                if (!stream) return;
+                
+                const item = document.createElement('div');
+                item.className = 'starred-node-item';
+                item.innerHTML = `
+                    <span class="star-bullet">✦</span>
+                    <span class="starred-title" onclick="focusOnStream('${id}')" title="Center view on sector">${stream.title}</span>
+                    <span class="starred-type-badge">${stream.isFallback ? 'BACKUP' : 'RSS'}</span>
+                `;
+                listContainer.appendChild(item);
             });
         }
 
-        function injectMediaPod(targetContainer, uniqueId, headerText, detailsText, videoUrl, imagePoster, numericIndex) {
-            const elementPod = document.createElement('div');
-            elementPod.className = 'video-pod';
-            elementPod.innerHTML = `
-                <div class="player-viewport">
-                    <video id="${uniqueId}">
-                        <source src="${videoUrl}" type="video/mp4" />
-                    </video>
-                </div>
-                <div class="meta-container">
-                    <h2>${headerText}</h2>
-                    <p>${detailsText}</p>
-                </div>
+        function focusOnStream(id) {
+            const card = document.querySelector(`.video-pod[data-stream-id="${id}"]`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.classList.add('pulse-highlight');
+                setTimeout(() => card.classList.remove('pulse-highlight'), 2000);
+            }
+        }
+
+        // Clipboard Copy Helper
+        function copyStreamLink(url, event) {
+            if (event) event.stopPropagation();
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('Sector URL copied to terminal', 'success');
+            }).catch(err => {
+                console.error(err);
+                showToast('Copy protocols failed', 'error');
+            });
+        }
+
+        // Custom Toast Engine
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle><polyline points="12 8 12 12 16 14"></polyline>
+                </svg>
+                <span>${message}</span>
             `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
 
-            targetContainer.appendChild(elementPod);
-
-            fluidPlayer(uniqueId, {
-                layoutControls: {
-                    fillToContainer: true,
-                    responsive: true,
-                    autoPlay: false,
-                    posterImage: imagePoster,
-                    playbackRateEnabled: true
+        // Rendering Core Engine
+        function renderStreamsFeed() {
+            const feedContainer = document.getElementById('streams-feed-container');
+            if (!feedContainer) return;
+            
+            feedContainer.innerHTML = '';
+            
+            // Filter dynamic list based on state
+            const filteredStreams = MASTER_STREAMS_ARRAY.filter(stream => {
+                const matchQuery = stream.title.toLowerCase().includes(SEARCH_QUERY) || 
+                                   stream.description.toLowerCase().includes(SEARCH_QUERY);
+                                   
+                if (!matchQuery) return false;
+                
+                if (ACTIVE_FILTER === 'favorites') {
+                    return isStarred(stream.id);
+                } else if (ACTIVE_FILTER === 'failsafe') {
+                    return stream.isFallback;
+                }
+                
+                return true;
+            });
+            
+            if (filteredStreams.length === 0) {
+                feedContainer.innerHTML = `
+                    <div class="status-tracker card-glow" style="grid-column: 1 / -1; padding: 60px 20px;">
+                        <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 48px; height: 48px; color: var(--color-accent); margin-bottom: 16px;">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <div class="status-title" style="font-weight: 700; color: #fff; margin-bottom: 8px;">NO STREAMS RESOLVED</div>
+                        <div class="status-desc" style="font-size: 0.9rem; color: var(--text-medium);">Modify filter inputs or reload the core telemetry array.</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (VIEW_LAYOUT === 'grid') {
+                feedContainer.className = 'streams-feed-grid grid-mode';
+            } else {
+                feedContainer.className = 'streams-feed-grid list-mode';
+            }
+            
+            filteredStreams.forEach((stream, idx) => {
+                const podId = `fluid-player-${stream.id}`;
+                const elementPod = document.createElement('div');
+                elementPod.className = 'video-pod card-glow';
+                elementPod.setAttribute('data-stream-id', stream.id);
+                
+                const starred = isStarred(stream.id);
+                
+                elementPod.innerHTML = `
+                    <div class="player-viewport">
+                        <div class="pod-badge-overlay">
+                            <span class="badge ${stream.isFallback ? 'badge-failsafe' : 'badge-live'}">
+                                ${stream.isFallback ? 'BACKUP NODE' : 'LIVE TRANS'}
+                            </span>
+                            <span class="badge badge-resolution">1080P</span>
+                        </div>
+                        <video id="${podId}">
+                            <source src="${stream.video}" type="video/mp4" />
+                        </video>
+                    </div>
+                    <div class="meta-container">
+                        <div class="meta-header">
+                            <h2>${stream.title}</h2>
+                            <button class="star-btn ${starred ? 'active' : ''}" onclick="toggleStar('${stream.id}', event)" title="Pin to console">
+                                <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${starred ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="desc-text">${stream.description}</p>
+                        <div class="meta-footer">
+                            <span class="node-tag">NODE SECTOR #${idx + 1}</span>
+                            <button class="node-action-btn" onclick="copyStreamLink('${stream.video}', event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                Copy URL
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                feedContainer.appendChild(elementPod);
+                
+                // Init FluidPlayer instance on newly created elements
+                fluidPlayer(podId, {
+                    layoutControls: {
+                        fillToContainer: true,
+                        responsive: true,
+                        autoPlay: false,
+                        posterImage: stream.poster || '',
+                        playbackRateEnabled: true
+                    }
+                });
+                
+                // HIGH CPM ZONE: In-Feed 468x60 Horizontal Banners Every 2 Videos
+                if ((idx + 1) % 2 === 0) {
+                    const embeddedAdMarkup = document.createElement('div');
+                    embeddedAdMarkup.className = 'ad-inventory-inline-wrapper';
+                    embeddedAdMarkup.innerHTML = `
+                        <div class="ad-sponsored-tag-small">IN-STREAM PROMOTION NODE (468x60)</div>
+                        <div class="ad-inventory-inline">
+                            <script type="text/javascript">
+                                atOptions = {
+                                    'key' : '1be8842697e3a29146839e7b43cdf447',
+                                    'format' : 'iframe',
+                                    'height' : 60,
+                                    'width' : 468,
+                                    'params' : {}
+                                };
+                            <\/script>
+                            <script type="text/javascript" src="https://www.highperformanceformat.com/1be8842697e3a29146839e7b43cdf447/invoke.js"><\/script>
+                        </div>
+                    `;
+                    feedContainer.appendChild(embeddedAdMarkup);
                 }
             });
-
-            if ((numericIndex + 1) % 2 === 0) {
-                const embeddedAdMarkup = document.createElement('div');
-                embeddedAdMarkup.className = 'ad-inventory-inline';
-                
-                embeddedAdMarkup.innerHTML = `
-                    <script type="text/javascript">
-                        atOptions = {
-                            'key' : '1be8842697e3a29146839e7b43cdf447',
-                            'format' : 'iframe',
-                            'height' : 60,
-                            'width' : 468,
-                            'params' : {}
-                        };
-                    <\/script>
-                    <script type="text/javascript" src="https://www.highperformanceformat.com/1be8842697e3a29146839e7b43cdf447/invoke.js"><\/script>
-                `;
-                targetContainer.appendChild(embeddedAdMarkup);
-            }
         }
 
-        window.onload = assembleStreamEngine;
+        // Canvas Oscilloscope Subsystem
+        function initOscilloscope() {
+            const canvas = document.getElementById('oscilloscope');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let phase = 0;
+            
+            function draw() {
+                if (!canvas) return;
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
+                if (canvas.width !== width || canvas.height !== height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                }
+                
+                ctx.clearRect(0, 0, width, height);
+                ctx.strokeStyle = '#00ffd5';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                
+                for (let x = 0; x < width; x++) {
+                    const y = height / 2 + 
+                              Math.sin(x * 0.04 + phase) * (height * 0.22) + 
+                              Math.cos(x * 0.015 - phase * 1.6) * (height * 0.08) +
+                              (Math.random() - 0.5) * 1.5;
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+                phase += 0.05;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        // Live Simulated Metrics Subsystem
+        function initTelemetryStats() {
+            const tempVal = document.getElementById('telemetry-temp');
+            const loadVal = document.getElementById('telemetry-load');
+            const pingVal = document.getElementById('telemetry-ping');
+            const logsContainer = document.getElementById('telemetry-logs');
+            
+            setInterval(() => {
+                if (tempVal) {
+                    const currentTemp = (41 + Math.random() * 4).toFixed(1);
+                    tempVal.textContent = `${currentTemp} °C`;
+                }
+                if (loadVal) {
+                    const currentLoad = (88 + Math.random() * 8).toFixed(1);
+                    loadVal.textContent = `${currentLoad} %`;
+                }
+                if (pingVal) {
+                    const currentPing = Math.floor(38 + Math.random() * 12);
+                    pingVal.textContent = `${currentPing} ms`;
+                    const navPing = document.getElementById('nav-ping-val');
+                    if (navPing) navPing.textContent = `${currentPing}ms`;
+                }
+            }, 1800);
+
+            const logPool = [
+                "Syncing packet frames...",
+                "Quantum core parity check: PASS",
+                "Buffered stream chunks initialized",
+                "Connecting to cluster [US-EAST]",
+                "Resolving SSL handshake keys...",
+                "Telemetry array response: 200 OK",
+                "Parsing XML tree hierarchy...",
+                "RSS payload stream resolved successfully",
+                "Glow-grid pipeline rendering frame sequence"
+            ];
+            
+            setInterval(() => {
+                if (!logsContainer) return;
+                const randomLog = logPool[Math.floor(Math.random() * logPool.length)];
+                const timeStamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                
+                const logLine = document.createElement('div');
+                logLine.className = 'log-line';
+                logLine.innerHTML = `<span class="log-time">[${timeStamp}]</span> <span class="log-msg">${randomLog}</span>`;
+                
+                logsContainer.appendChild(logLine);
+                logsContainer.scrollTop = logsContainer.scrollHeight;
+                
+                while (logsContainer.children.length > 15) {
+                    logsContainer.removeChild(logsContainer.firstChild);
+                }
+            }, 5000);
+        }
+
+        window.onload = () => {
+            assembleStreamEngine();
+            initOscilloscope();
+            initTelemetryStats();
+            
+            // Card Hover Mouse Tracking
+            document.addEventListener('mousemove', e => {
+                document.querySelectorAll('.card-glow').forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+            
+            // Search Input Event
+            const searchInput = document.getElementById('stream-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    SEARCH_QUERY = e.target.value.toLowerCase().trim();
+                    renderStreamsFeed();
+                });
+            }
+            
+            // Filter Button Event Listeners
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    const targetBtn = e.target.closest('.filter-btn');
+                    targetBtn.classList.add('active');
+                    ACTIVE_FILTER = targetBtn.getAttribute('data-filter');
+                    renderStreamsFeed();
+                });
+            });
+            
+            // View Layout Grid/List Listeners
+            const layoutGridBtn = document.getElementById('layout-grid');
+            const layoutListBtn = document.getElementById('layout-list');
+            
+            if (layoutGridBtn && layoutListBtn) {
+                layoutGridBtn.addEventListener('click', () => {
+                    layoutGridBtn.classList.add('active');
+                    layoutListBtn.classList.remove('active');
+                    VIEW_LAYOUT = 'grid';
+                    renderStreamsFeed();
+                });
+                
+                layoutListBtn.addEventListener('click', () => {
+                    layoutListBtn.classList.add('active');
+                    layoutGridBtn.classList.remove('active');
+                    VIEW_LAYOUT = 'list';
+                    renderStreamsFeed();
+                });
+            }
+        };
     </script>
 
-    <script src="https://pl29875108.effectivecpmnetwork.com/0b/fc/e5/0bfce521d2c907f7c00e045b5b36a268.js"></script>
+    <script src="https://pl29875104.effectivecpmnetwork.com/0b/fc/e5/0bfce521d2c907f7c00e045b5b36a268.js"></script>
 
 </body>
 </html>
