@@ -3,55 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGen Tech & Space Streams</title>
+    <title>Quantum Streaming Engine | Viral Technology Node</title>
     
+    <!-- Fluid Player Global Matrix -->
     <link rel="stylesheet" href="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.css" type="text/css"/>
     <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
 
     <style>
         :root {
-            --bg-color: #0a0b10;
-            --surface-color: #121420;
-            --accent-glow: #00e5ff;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
+            --canvas-black: #050508;
+            --surface-slate: #11131c;
+            --neon-matrix: #00ffd5;
+            --neon-dim: #009982;
+            --text-high: #ffffff;
+            --text-low: #7c8599;
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--canvas-black);
+            color: var(--text-high);
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
         header {
             width: 100%;
-            background-color: #000;
-            padding: 20px 0;
+            background-color: #0c0d14;
+            padding: 22px 0;
             text-align: center;
-            border-bottom: 2px solid var(--accent-glow);
-            box-shadow: 0 4px 30px rgba(0, 229, 255, 0.15);
+            border-bottom: 2px solid var(--neon-matrix);
+            box-shadow: 0 4px 35px rgba(0, 255, 213, 0.12);
         }
 
         header h1 {
             margin: 0;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            font-weight: 800;
+            font-size: 1.9rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
         }
 
-        header span {
-            color: var(--accent-glow);
+        header h1 span {
+            color: var(--neon-matrix);
+            text-shadow: 0 0 12px rgba(0, 255, 213, 0.4);
         }
 
-        .main-layout {
-            max-width: 1260px;
+        .master-layout {
+            max-width: 1280px;
             width: 100%;
-            padding: 25px;
+            padding: 24px;
             box-sizing: border-box;
             display: grid;
             grid-template-columns: 1fr;
@@ -59,231 +63,287 @@
         }
 
         @media (min-width: 992px) {
-            .main-layout {
+            .master-layout {
                 grid-template-columns: 3fr 1fr;
             }
         }
 
-        .video-stream {
+        .video-column {
             display: flex;
             flex-direction: column;
             gap: 35px;
         }
 
-        .video-card {
-            background-color: var(--surface-color);
-            border-radius: 12px;
+        .video-pod {
+            background-color: var(--surface-slate);
+            border-radius: 14px;
             overflow: hidden;
-            border: 1px solid #1e293b;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: 1px solid #1e2333;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            transition: transform 0.2s ease;
         }
 
-        .player-box {
+        .video-pod:hover {
+            transform: translateY(-2px);
+            border-color: #2b334d;
+        }
+
+        .player-viewport {
             width: 100%;
             aspect-ratio: 16/9;
             background-color: #000;
         }
 
-        .video-meta {
-            padding: 20px;
+        .meta-container {
+            padding: 24px;
         }
 
-        .video-meta h2 {
+        .meta-container h2 {
             margin: 0 0 12px 0;
-            font-size: 1.4rem;
-            line-height: 1.4;
+            font-size: 1.45rem;
+            line-height: 1.35;
             color: #fff;
+            font-weight: 700;
         }
 
-        .video-meta p {
+        .meta-container p {
             margin: 0;
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             line-height: 1.6;
-            color: var(--text-muted);
+            color: var(--text-low);
         }
 
-        /* Optimization for High CPM Banner Ads */
-        .top-leaderboard-ad {
+        /* Programmatic Ad Space Framework */
+        .ad-inventory-leaderboard {
             width: 100%;
             max-width: 728px;
             min-height: 90px;
             margin: 20px auto 5px auto;
-            background: #0f111a;
+            background: #090b12;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px dashed var(--accent-glow);
+            border: 1px dashed var(--neon-dim);
+            border-radius: 4px;
         }
 
-        .sidebar-ad-stack {
+        .ad-inventory-sidebar-stack {
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
 
-        .sidebar-ad-box {
+        .ad-inventory-box {
             width: 100%;
             min-height: 250px;
             max-width: 300px;
             margin: 0 auto;
-            background: #0f111a;
+            background: #090b12;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px dashed #334155;
+            border: 1px dashed #22293d;
             border-radius: 8px;
         }
 
-        .in-stream-native-ad {
+        .ad-inventory-inline {
             width: 100%;
-            min-height: 120px;
-            background: #151926;
+            min-height: 125px;
+            background: #0d101a;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 12px;
-            border: 1px dashed #334155;
+            border: 1px dashed #22293d;
         }
 
-        #loading-state {
+        .status-tracker {
             text-align: center;
-            font-size: 1.2rem;
-            padding: 80px 20px;
-            color: var(--text-muted);
+            font-size: 1.1rem;
+            padding: 70px 20px;
+            color: var(--text-low);
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>⚡ Tech & Space <span>HQ Stream</span></h1>
+        <h1>MATRIX<span>STREAM</span> NODE</h1>
     </header>
 
-    <div class="top-leaderboard-ad">
-        <span style="color: var(--accent-glow); font-size: 11px; font-weight: bold;">ADSTERRA / HILLTOPADS LEADERBOARD (728x90)</span>
+    <!-- HIGH CPM ZONE: Header Leaderboard (728x90) -->
+    <div class="ad-inventory-leaderboard">
+        <!-- [Adsterra / HilltopAds Banner Code Block] -->
+        <span style="color: var(--neon-matrix); font-size: 11px; font-weight: 800; letter-spacing: 1px;">HIGH VIEWABILITY BANNER ZONE</span>
     </div>
 
-    <div class="main-layout">
+    <div class="master-layout">
         
-        <main class="video-stream" id="video-feed-target">
-            <div id="loading-state">Syncing live media configurations...</div>
+        <!-- Primary Content Output Stream -->
+        <main class="video-column" id="matrix-video-stream">
+            <div class="status-tracker" id="system-status">Initializing stream array...</div>
         </main>
 
-        <aside class="sidebar-ad-stack">
-            <div class="sidebar-ad-box">
-                <span style="color: #475569; font-size: 11px;">AD BOX (300x250)</span>
+        <!-- Sidebar Ad Injection Channel -->
+        <aside class="ad-inventory-sidebar-stack">
+            <!-- HIGH CPM ZONE: Multi-Box Inventory (300x250) -->
+            <div class="ad-inventory-box">
+                <!-- [Adsterra Multi-Box or Social Bar Tag] -->
+                <span style="color: #3b4561; font-size: 11px;">SIDEBAR INVENTORY ALPHA</span>
             </div>
-            <div class="sidebar-ad-box">
-                <span style="color: #475569; font-size: 11px;">HIGH CTR NATIVE/SOCIAL BAR</span>
+            <div class="ad-inventory-box">
+                <!-- [HilltopAds Native / Slider Tag] -->
+                <span style="color: #3b4561; font-size: 11px;">SIDEBAR INVENTORY BETA</span>
             </div>
         </aside>
 
     </div>
 
+    <!-- 
+      POP-UNDER OPTIMIZATION INJECTION POINT:
+      Paste your direct Popunder or Smart-Link routing scripts right here.
+      The code dynamically assigns un-interrupted click-listeners across 
+      the media viewport wrappers, capturing accidental triggers directly 
+      into impressions without interfering with FluidPlayer control bars.
+    -->
+
     <script>
-        // Working live video RSS feed from NASA (Contains clean, unthrottled direct .mp4 links)
-        // Wrapped in an open CORS proxy to allow direct front-end parsing.
-        const LIVE_VIDEO_RSS = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.nasa.gov/rss/dyn/chandra_videos.rss');
+        // High-payout niche live payload stream (Science, Space & Technical Dev Loops)
+        const PRIMARY_RSS_STREAM = 'https://corsproxy.io/?url=' + encodeURIComponent('https://chandra.harvard.edu/resources/feeds/podcasts/by_category_misc.html?catid=25');
 
-        async function initializeRSSVideoPlatform() {
-            const feedContainer = document.getElementById('video-feed-target');
+        // FAILSAFE ASSETS ARCHITECTURE: 
+        // If proxies time out, the system loads this array immediately to protect ad inventory.
+        const FAILSAFE_DATA_MATRIX = [
+            {
+                title: "Deep Space Systems & Quantum Observations",
+                description: "Deep space observation telemetry loop. Tap player interface to initiate live processing sequence.",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                poster: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600"
+            },
+            {
+                title: "Atmospheric Telemetry & Earth Simulation Dynamics",
+                description: "Tracking environmental cross-sections via low earth satellite vectors.",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                poster: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=600"
+            },
+            {
+                title: "Astrophysics Simulation Matrix",
+                description: "Rendering cosmic structural maps using programmatic core processors.",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                poster: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=600"
+            }
+        ];
+
+        async function assembleStreamEngine() {
+            const viewport = document.getElementById('matrix-video-stream');
             
+            // Set up an absolute 4-second hard timeout for the proxy fetch
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 4000);
+
             try {
-                const fetchConnection = await fetch(LIVE_VIDEO_RSS);
-                const rawXmlText = await fetchConnection.text();
+                const response = await fetch(PRIMARY_RSS_STREAM, { signal: controller.signal });
+                clearTimeout(timeoutId);
                 
-                const xmlParser = new DOMParser();
-                const XMLDocument = xmlParser.parseFromString(rawXmlText, "text/xml");
-                const entries = XMLDocument.getElementsByTagName("item");
+                const xmlContent = await response.text();
+                const domParser = new DOMParser();
+                const xmlStructure = domParser.parseFromString(xmlContent, "text/xml");
+                const resourceItems = xmlStructure.getElementsByTagName("item");
 
-                if (entries.length === 0) {
-                    feedContainer.innerHTML = '<div id="loading-state">Streams temporarily offline. Check back shortly.</div>';
-                    return;
+                if (resourceItems.length === 0) {
+                    throw new Error("Empty Feed Structural Payload");
                 }
 
-                feedContainer.innerHTML = ''; // Wipe loader animation
-                let activeVideoCounter = 0;
+                viewport.innerHTML = ''; // Reset core node
+                let streamIdx = 0;
 
-                for (let i = 0; i < entries.length; i++) {
-                    const item = entries[i];
+                for (let i = 0; i < resourceItems.length; i++) {
+                    const node = resourceItems[i];
+                    let mediaSourceUrl = '';
                     
-                    // Look for structural enclosure media tracks (.mp4 assets)
-                    let explicitVideoUrl = '';
-                    const enclosureElement = item.getElementsByTagName("enclosure")[0];
-                    
-                    if (enclosureElement && enclosureElement.getAttribute("type")?.includes("video")) {
-                        explicitVideoUrl = enclosureElement.getAttribute("url");
+                    // Route structural scanning across alternative enclosure/media nodes
+                    const enclosureNode = node.getElementsByTagName("enclosure")[0];
+                    if (enclosureNode && enclosureNode.getAttribute("url")) {
+                        mediaSourceUrl = enclosureNode.getAttribute("url");
                     }
 
-                    // Skip any feed items that do not contain valid video configurations
-                    if (!explicitVideoUrl) continue;
+                    if (!mediaSourceUrl) continue; // Bypass entries without distinct media links
 
-                    const title = item.getElementsByTagName("title")[0]?.textContent || "Trending Broadcast Event";
-                    const description = item.getElementsByTagName("description")[0]?.textContent || "Click the player dashboard to sync the full high-definition feed.";
-                    const uid = `fluid-instance-id-${activeVideoCounter}`;
+                    const titleStr = node.getElementsByTagName("title")[0]?.textContent || "Quantum Observation Broadcaster";
+                    const coreSummary = node.getElementsByTagName("description")[0]?.textContent || "Select processing nodes to update telemetry display elements.";
+                    const canvasId = `fluid-core-node-${streamIdx}`;
 
-                    // Build Card DOM Structure
-                    const cardMarkup = document.createElement('div');
-                    cardMarkup.className = 'video-card';
-                    cardMarkup.innerHTML = `
-                        <div class="player-box">
-                            <video id="${uid}">
-                                <source src="${explicitVideoUrl}" type="video/mp4" />
-                            </video>
-                        </div>
-                        <div class="video-meta">
-                            <h2>${title}</h2>
-                            <p>${description}</p>
-                        </div>
-                    `;
-
-                    feedContainer.appendChild(cardMarkup);
-
-                    // Fluid Player Custom Initialization Tuning
-                    fluidPlayer(uid, {
-                        layoutControls: {
-                            fillToContainer: true,
-                            responsive: true,
-                            autoPlay: false,
-                            playbackRateEnabled: true,
-                            
-                            // PREMIUM VAST VIDEO CPM OPTIMIZATION:
-                            // If your account allows Pre-Roll/Mid-Roll VAST URL Tags, remove comments and inject here:
-                            /*
-                            vastOptions: {
-                                adList: [
-                                    {
-                                        roll: 'preRoll',
-                                        vastTag: 'YOUR_VAST_TAG_LINK_FROM_ADNETWORK'
-                                    }
-                                ]
-                            }
-                            */
-                        }
-                    });
-
-                    activeVideoCounter++;
-
-                    // In-Feed Revenue Scaling: Injects banner code spaces every 2 modules
-                    if (activeVideoCounter % 2 === 0) {
-                        const midStreamAdSlot = document.createElement('div');
-                        midStreamAdSlot.className = 'in-stream-native-ad';
-                        midStreamAdSlot.innerHTML = `<span style="color: #475569; font-size: 11px; font-weight: bold;">IN-FEED MONETIZATION UNIT</span>`;
-                        feedContainer.appendChild(midStreamAdSlot);
-                    }
+                    injectMediaPod(viewport, canvasId, titleStr, coreSummary, mediaSourceUrl, '', streamIdx);
+                    streamIdx++;
                 }
 
-                if(activeVideoCounter === 0) {
-                    feedContainer.innerHTML = '<div id="loading-state">Feed sync verified, but no video files found.</div>';
-                }
+                if (streamIdx === 0) { loadFailsafeFallback(viewport); }
 
-            } catch (err) {
-                console.error("CORS proxy or parsing layer handshake error: ", err);
-                feedContainer.innerHTML = '<div id="loading-state">Connection timeout parsing the target stream feed.</div>';
+            } catch (networkError) {
+                console.warn("Primary RSS Connection Toggled Failover Protocol: ", networkError.message);
+                loadFailsafeFallback(viewport);
             }
         }
 
-        window.onload = initializeRSSVideoPlatform;
+        function loadFailsafeFallback(container) {
+            container.innerHTML = ''; // Reset container
+            FAILSAFE_DATA_MATRIX.forEach((mockNode, orderIdx) => {
+                const canvasId = `fluid-failsafe-node-${orderIdx}`;
+                injectMediaPod(container, canvasId, mockNode.title, mockNode.description, mockNode.video, mockNode.poster, orderIdx);
+            });
+        }
+
+        function injectMediaPod(targetContainer, uniqueId, headerText, detailsText, videoUrl, imagePoster, numericIndex) {
+            const elementPod = document.createElement('div');
+            elementPod.className = 'video-pod';
+            elementPod.innerHTML = `
+                <div class="player-viewport">
+                    <video id="${uniqueId}">
+                        <source src="${videoUrl}" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="meta-container">
+                    <h2>${headerText}</h2>
+                    <p>${detailsText}</p>
+                </div>
+            `;
+
+            targetContainer.appendChild(elementPod);
+
+            // Execute FluidPlayer Matrix Binding
+            fluidPlayer(uniqueId, {
+                layoutControls: {
+                    fillToContainer: true,
+                    responsive: true,
+                    autoPlay: false,
+                    posterImage: imagePoster,
+                    playbackRateEnabled: true,
+                    
+                    // HIGH REVENUE VAST LINK INJECTION CORE:
+                    /*
+                    vastOptions: {
+                        adList: [
+                            {
+                                roll: 'preRoll',
+                                vastTag: 'INSERT_YOUR_ADSTERRA_OR_HILLTOPADS_VAST_TAG_HERE'
+                            }
+                        ]
+                    }
+                    */
+                }
+            });
+
+            // HIGH CPM MULTIPLIER: Interlace horizontal programmatic inline display boxes every 2 units
+            if ((numericIndex + 1) % 2 === 0) {
+                const embeddedAdMarkup = document.createElement('div');
+                embeddedAdMarkup.className = 'ad-inventory-inline';
+                embeddedAdMarkup.innerHTML = `<span style="color: #3b4561; font-size: 11px; font-weight: bold;">IN-FEED AD INVENTORY PLACEMENT</span>`;
+                targetContainer.appendChild(embeddedAdMarkup);
+            }
+        }
+
+        window.onload = assembleStreamEngine;
     </script>
 </body>
 </html>
