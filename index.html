@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Streaming Engine | Viral Technology Node</title>
     
-    <!-- Fluid Player Global Matrix -->
     <link rel="stylesheet" href="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.css" type="text/css"/>
     <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
 
@@ -123,7 +122,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px dashed var(--neon-dim);
             border-radius: 4px;
         }
 
@@ -142,19 +140,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px dashed #22293d;
             border-radius: 8px;
         }
 
         .ad-inventory-inline {
             width: 100%;
-            min-height: 125px;
-            background: #0d101a;
+            min-height: 60px;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            border: 1px dashed #22293d;
+            margin: 10px 0;
         }
 
         .status-tracker {
@@ -172,48 +168,50 @@
         <h1>MATRIX<span>STREAM</span> NODE</h1>
     </header>
 
-    <!-- HIGH CPM ZONE: Header Leaderboard (728x90) -->
     <div class="ad-inventory-leaderboard">
-        <!-- [Adsterra / HilltopAds Banner Code Block] -->
-        <span style="color: var(--neon-matrix); font-size: 11px; font-weight: 800; letter-spacing: 1px;">HIGH VIEWABILITY BANNER ZONE</span>
+        <script>
+            atOptions = {
+                'key' : '72e6d9a070d5ad63e97121589c818234',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/72e6d9a070d5ad63e97121589c818234/invoke.js"></script>
     </div>
 
     <div class="master-layout">
         
-        <!-- Primary Content Output Stream -->
         <main class="video-column" id="matrix-video-stream">
             <div class="status-tracker" id="system-status">Initializing stream array...</div>
         </main>
 
-        <!-- Sidebar Ad Injection Channel -->
         <aside class="ad-inventory-sidebar-stack">
-            <!-- HIGH CPM ZONE: Multi-Box Inventory (300x250) -->
             <div class="ad-inventory-box">
-                <!-- [Adsterra Multi-Box or Social Bar Tag] -->
-                <span style="color: #3b4561; font-size: 11px;">SIDEBAR INVENTORY ALPHA</span>
+                <script>
+                    atOptions = {
+                        'key' : '3e807240d888c9415cd851d315756dfa',
+                        'format' : 'iframe',
+                        'height' : 250,
+                        'width' : 300,
+                        'params' : {}
+                    };
+                </script>
+                <script src="https://www.highperformanceformat.com/3e807240d888c9415cd851d315756dfa/invoke.js"></script>
             </div>
-            <div class="ad-inventory-box">
-                <!-- [HilltopAds Native / Slider Tag] -->
-                <span style="color: #3b4561; font-size: 11px;">SIDEBAR INVENTORY BETA</span>
+            
+            <div class="ad-inventory-box" style="background: transparent;">
+                <script src="https://pl29875108.effectivecpmnetwork.com/66/ab/3b/66ab3b3507ed270236e250d00e419ea8.js"></script>
             </div>
         </aside>
 
     </div>
 
-    <!-- 
-      POP-UNDER OPTIMIZATION INJECTION POINT:
-      Paste your direct Popunder or Smart-Link routing scripts right here.
-      The code dynamically assigns un-interrupted click-listeners across 
-      the media viewport wrappers, capturing accidental triggers directly 
-      into impressions without interfering with FluidPlayer control bars.
-    -->
-
     <script>
-        // High-payout niche live payload stream (Science, Space & Technical Dev Loops)
         const PRIMARY_RSS_STREAM = 'https://corsproxy.io/?url=' + encodeURIComponent('https://chandra.harvard.edu/resources/feeds/podcasts/by_category_misc.html?catid=25');
 
-        // FAILSAFE ASSETS ARCHITECTURE: 
-        // If proxies time out, the system loads this array immediately to protect ad inventory.
+        // FAILSAFE ASSETS ARCHITECTURE
         const FAILSAFE_DATA_MATRIX = [
             {
                 title: "Deep Space Systems & Quantum Observations",
@@ -238,7 +236,6 @@
         async function assembleStreamEngine() {
             const viewport = document.getElementById('matrix-video-stream');
             
-            // Set up an absolute 4-second hard timeout for the proxy fetch
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 4000);
 
@@ -255,20 +252,19 @@
                     throw new Error("Empty Feed Structural Payload");
                 }
 
-                viewport.innerHTML = ''; // Reset core node
+                viewport.innerHTML = ''; 
                 let streamIdx = 0;
 
                 for (let i = 0; i < resourceItems.length; i++) {
                     const node = resourceItems[i];
                     let mediaSourceUrl = '';
                     
-                    // Route structural scanning across alternative enclosure/media nodes
                     const enclosureNode = node.getElementsByTagName("enclosure")[0];
                     if (enclosureNode && enclosureNode.getAttribute("url")) {
                         mediaSourceUrl = enclosureNode.getAttribute("url");
                     }
 
-                    if (!mediaSourceUrl) continue; // Bypass entries without distinct media links
+                    if (!mediaSourceUrl) continue; 
 
                     const titleStr = node.getElementsByTagName("title")[0]?.textContent || "Quantum Observation Broadcaster";
                     const coreSummary = node.getElementsByTagName("description")[0]?.textContent || "Select processing nodes to update telemetry display elements.";
@@ -287,7 +283,7 @@
         }
 
         function loadFailsafeFallback(container) {
-            container.innerHTML = ''; // Reset container
+            container.innerHTML = ''; 
             FAILSAFE_DATA_MATRIX.forEach((mockNode, orderIdx) => {
                 const canvasId = `fluid-failsafe-node-${orderIdx}`;
                 injectMediaPod(container, canvasId, mockNode.title, mockNode.description, mockNode.video, mockNode.poster, orderIdx);
@@ -311,39 +307,40 @@
 
             targetContainer.appendChild(elementPod);
 
-            // Execute FluidPlayer Matrix Binding
             fluidPlayer(uniqueId, {
                 layoutControls: {
                     fillToContainer: true,
                     responsive: true,
                     autoPlay: false,
                     posterImage: imagePoster,
-                    playbackRateEnabled: true,
-                    
-                    // HIGH REVENUE VAST LINK INJECTION CORE:
-                    /*
-                    vastOptions: {
-                        adList: [
-                            {
-                                roll: 'preRoll',
-                                vastTag: 'INSERT_YOUR_ADSTERRA_OR_HILLTOPADS_VAST_TAG_HERE'
-                            }
-                        ]
-                    }
-                    */
+                    playbackRateEnabled: true
                 }
             });
 
-            // HIGH CPM MULTIPLIER: Interlace horizontal programmatic inline display boxes every 2 units
             if ((numericIndex + 1) % 2 === 0) {
                 const embeddedAdMarkup = document.createElement('div');
                 embeddedAdMarkup.className = 'ad-inventory-inline';
-                embeddedAdMarkup.innerHTML = `<span style="color: #3b4561; font-size: 11px; font-weight: bold;">IN-FEED AD INVENTORY PLACEMENT</span>`;
+                
+                embeddedAdMarkup.innerHTML = `
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '1be8842697e3a29146839e7b43cdf447',
+                            'format' : 'iframe',
+                            'height' : 60,
+                            'width' : 468,
+                            'params' : {}
+                        };
+                    <\/script>
+                    <script type="text/javascript" src="https://www.highperformanceformat.com/1be8842697e3a29146839e7b43cdf447/invoke.js"><\/script>
+                `;
                 targetContainer.appendChild(embeddedAdMarkup);
             }
         }
 
         window.onload = assembleStreamEngine;
     </script>
+
+    <script src="https://pl29875108.effectivecpmnetwork.com/66/ab/3b/66ab3b3507ed270236e250d00e419ea8.js"></script>
+
 </body>
 </html>
