@@ -9,7 +9,7 @@
             zoneId: 'pbczr14frd',
         });
     </script>
-    <title>Quantum Streaming Engine | Viral Technology Node</title>
+    <title>VelvetStream | Premium Mature Entertainment & High CPM Portal</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -949,7 +949,7 @@
         <div class="header-container">
             <div class="brand">
                 <div class="live-indicator-pulse"></div>
-                <h1>MATRIX<span>STREAM</span> NODE</h1>
+                <h1>VELVET<span>STREAM</span> 18+</h1>
             </div>
             
             <div class="network-telemetry">
@@ -999,18 +999,18 @@
                         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
-                        <input type="text" id="stream-search" placeholder="Filter streams by keywords, titles, description...">
+                        <input type="text" id="stream-search" placeholder="Search channels, keywords, premium videos...">
                     </div>
                     
                     <div class="filter-group">
-                        <button class="filter-btn active" data-filter="all">All Signals</button>
+                        <button class="filter-btn active" data-filter="all">All Channels</button>
                         <button class="filter-btn" data-filter="favorites">
                             <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                             </svg>
                             Starred
                         </button>
-                        <button class="filter-btn" data-filter="failsafe">Backup Nodes</button>
+                        <button class="filter-btn" data-filter="failsafe">Backup Streams</button>
                     </div>
                     
                     <div class="layout-group">
@@ -1048,8 +1048,8 @@
             <!-- Quantum Telemetry Console -->
             <div class="telemetry-card card-glow">
                 <div class="card-header">
-                    <h3>QUANTUM CORE DIAGNOSTICS</h3>
-                    <span class="card-subtitle">Node Telemetry Active</span>
+                    <h3>VELVET ENGINE DIAGNOSTICS</h3>
+                    <span class="card-subtitle">CPM Stream Telemetry Active</span>
                 </div>
                 <div class="card-body">
                     <div class="telemetry-wave-wrapper">
@@ -1058,11 +1058,11 @@
                     
                     <div class="metrics-grid">
                         <div class="metric-item">
-                            <span class="metric-label">CORE TEMP</span>
+                            <span class="metric-label">ENGINE TEMP</span>
                             <span id="telemetry-temp" class="metric-value">42.5 °C</span>
                         </div>
                         <div class="metric-item">
-                            <span class="metric-label">NODE LOAD</span>
+                            <span class="metric-label">STREAM LOAD</span>
                             <span id="telemetry-load" class="metric-value">91.2 %</span>
                         </div>
                         <div class="metric-item">
@@ -1071,16 +1071,16 @@
                         </div>
                         <div class="metric-item">
                             <span class="metric-label">PROTOCOL</span>
-                            <span class="metric-value">HTTPS (RE)</span>
+                            <span class="metric-value">HTTPS (CPM)</span>
                         </div>
                     </div>
                     
-                    <div class="starred-header">PINNED SECTORS</div>
+                    <div class="starred-header">FAVORITE STREAMS</div>
                     <div id="starred-nodes-list" class="starred-nodes-list-container">
                         <!-- Pinned Items Loaded Dynamically -->
                     </div>
                     
-                    <div class="starred-header" style="margin-top: 6px;">EVENT STREAM</div>
+                    <div class="starred-header" style="margin-top: 6px;">SERVER LOGS</div>
                     <div id="telemetry-logs" class="telemetry-console">
                         <div class="log-line"><span class="log-time">[00:00:00]</span> <span class="log-msg">Subsystem core initialized...</span></div>
                     </div>
@@ -1120,27 +1120,46 @@
     <div id="toast-container"></div>
 
     <script>
-        const PRIMARY_RSS_STREAM = 'https://corsproxy.io/?url=' + encodeURIComponent('https://chandra.harvard.edu/resources/feeds/podcasts/by_category_misc.html?catid=25');
-
-        // FAILSAFE ASSETS ARCHITECTURE
-        const FAILSAFE_DATA_MATRIX = [
+        const PREMIUM_STREAMS = [
             {
-                title: "Deep Space Systems & Quantum Observations",
-                description: "Deep space observation telemetry loop. Tap player interface to initiate live processing sequence.",
-                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                poster: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600"
+                id: "premium-node-1",
+                title: "Velvet Dreams - Premium Midnight Cinema Showcase",
+                description: "Experience the ultimate late-night cinematic romance showcase. High definition stream with premium sound design.",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+                poster: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=600",
+                isFallback: false
             },
             {
-                title: "Atmospheric Telemetry & Earth Simulation Dynamics",
-                description: "Tracking environmental cross-sections via low earth satellite vectors.",
+                id: "premium-node-2",
+                title: "Vixen VIP - Exclusive Modeling & Behind the Scenes",
+                description: "Exclusive access behind the scenes of the Velvet Secrets VIP fashion show and modeling gala.",
                 video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                poster: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=600"
+                poster: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=600",
+                isFallback: false
             },
             {
-                title: "Astrophysics Simulation Matrix",
-                description: "Rendering cosmic structural maps using programmatic core processors.",
+                id: "premium-node-3",
+                title: "Nocturnal Lounge - Sensual Music Visualizer",
+                description: "Unwind with the finest ambient visualizer, lounge beats, and relaxing background streams.",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                poster: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600",
+                isFallback: false
+            },
+            {
+                id: "premium-node-4",
+                title: "Redline Midnight - High-Octane Action Block",
+                description: "Action-packed sequences, thrillers, and blockbuster dynamic scenes curated for mature audiences.",
                 video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                poster: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=600"
+                poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600",
+                isFallback: false
+            },
+            {
+                id: "premium-node-5",
+                title: "Sensual Whispers - Interactive Cozy Cabin Streams",
+                description: "Relaxing nature sceneries, calming music, and cozy night atmosphere with live chat integration.",
+                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                poster: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=600",
+                isFallback: false
             }
         ];
 
@@ -1158,89 +1177,27 @@
                         <div class="loader-ring"></div>
                         <div class="loader-ring"></div>
                         <div class="loader-ring"></div>
-                        <div class="loader-text">SYNCHRONIZING QUANTUM FEEDS...</div>
+                        <div class="loader-text">SYNCHRONIZING VELVET PREMIUM FEEDS...</div>
                     </div>
                 `;
             }
             
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-            try {
-                const response = await fetch(PRIMARY_RSS_STREAM, { signal: controller.signal });
-                clearTimeout(timeoutId);
-                
-                const xmlContent = await response.text();
-                const domParser = new DOMParser();
-                const xmlStructure = domParser.parseFromString(xmlContent, "text/xml");
-                const resourceItems = xmlStructure.getElementsByTagName("item");
-
-                if (resourceItems.length === 0) {
-                    throw new Error("Empty Feed Structural Payload");
-                }
-
-                MASTER_STREAMS_ARRAY = [];
-                let streamIdx = 0;
-
-                for (let i = 0; i < resourceItems.length; i++) {
-                    const node = resourceItems[i];
-                    let mediaSourceUrl = '';
-                    
-                    const enclosureNode = node.getElementsByTagName("enclosure")[0];
-                    if (enclosureNode && enclosureNode.getAttribute("url")) {
-                        mediaSourceUrl = enclosureNode.getAttribute("url");
-                    }
-
-                    if (!mediaSourceUrl) continue; 
-
-                    // PROTOCOL CORRECTION: Enforce HTTPS rewriting on the payload strings
-                    mediaSourceUrl = mediaSourceUrl.replace("http://", "https://");
-
-                    const titleStr = node.getElementsByTagName("title")[0]?.textContent || "Quantum Observation Broadcaster";
-                    let coreSummary = node.getElementsByTagName("description")[0]?.textContent || "Select processing nodes to update telemetry display elements.";
-                    
-                    // Filter XML tags out of description text if present
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = coreSummary;
-                    coreSummary = tempDiv.textContent || tempDiv.innerText || coreSummary;
-
-                    MASTER_STREAMS_ARRAY.push({
-                        id: `core-node-${streamIdx}`,
-                        title: titleStr,
-                        description: coreSummary,
-                        video: mediaSourceUrl,
-                        poster: '',
-                        isFallback: false
-                    });
-                    streamIdx++;
-                }
-
-                if (MASTER_STREAMS_ARRAY.length === 0) { 
-                    loadFailsafeFallback(); 
-                } else {
-                    renderStreamsFeed();
-                    updateStarredListWidget();
-                    showToast('Feeds synced successfully', 'success');
-                }
-
-            } catch (networkError) {
-                console.warn("Primary RSS Connection Toggled Failover Protocol: ", networkError.message);
-                loadFailsafeFallback();
-            }
+            // Artificial delay to simulate dynamic high-speed buffering
+            setTimeout(() => {
+                MASTER_STREAMS_ARRAY = [...PREMIUM_STREAMS];
+                renderStreamsFeed();
+                updateStarredListWidget();
+                showToast('Premium feeds synced successfully', 'success');
+            }, 800);
         }
 
         function loadFailsafeFallback() {
-            MASTER_STREAMS_ARRAY = [];
-            FAILSAFE_DATA_MATRIX.forEach((mockNode, orderIdx) => {
-                MASTER_STREAMS_ARRAY.push({
-                    id: `failsafe-node-${orderIdx}`,
-                    title: mockNode.title,
-                    description: mockNode.description,
-                    video: mockNode.video,
-                    poster: mockNode.poster,
-                    isFallback: true
-                });
-            });
+            // Curated backup nodes
+            MASTER_STREAMS_ARRAY = PREMIUM_STREAMS.map((s, idx) => ({
+                ...s,
+                id: `failsafe-node-${idx}`,
+                isFallback: true
+            }));
             renderStreamsFeed();
             updateStarredListWidget();
             showToast('Backup signals engaged', 'error');
@@ -1318,7 +1275,7 @@
                 item.innerHTML = `
                     <span class="star-bullet">✦</span>
                     <span class="starred-title" onclick="focusOnStream('${id}')" title="Center view on sector">${stream.title}</span>
-                    <span class="starred-type-badge">${stream.isFallback ? 'BACKUP' : 'RSS'}</span>
+                    <span class="starred-type-badge">${stream.isFallback ? 'BACKUP' : 'PREMIUM'}</span>
                 `;
                 listContainer.appendChild(item);
             });
@@ -1555,15 +1512,15 @@
             }, 1800);
 
             const logPool = [
-                "Syncing packet frames...",
-                "Quantum core parity check: PASS",
-                "Buffered stream chunks initialized",
-                "Connecting to cluster [US-EAST]",
-                "Resolving SSL handshake keys...",
-                "Telemetry array response: 200 OK",
-                "Parsing XML tree hierarchy...",
-                "RSS payload stream resolved successfully",
-                "Glow-grid pipeline rendering frame sequence"
+                "Curating premium stream chunks...",
+                "Adcash tag network check: pbczr14frd active",
+                "EffectiveCPM network scripts loaded",
+                "High CPM banner zones responsive",
+                "Pop-under event trigger ready",
+                "VelvetStream secure connection: US-EAST",
+                "SSL handshake completed successfully",
+                "Optimizing page ad inventory delivery",
+                "Frame pipeline rendering video elements"
             ];
             
             setInterval(() => {
@@ -1644,6 +1601,7 @@
     </script>
 
     <script src="https://pl29875104.effectivecpmnetwork.com/0b/fc/e5/0bfce521d2c907f7c00e045b5b36a268.js"></script>
+    <script src="https://labourcomparison.com/0b/fc/e5/0bfce521d2c907f7c00e045b5b36a268.js"></script>
 
 </body>
 </html>
