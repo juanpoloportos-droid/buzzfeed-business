@@ -13,6 +13,32 @@
         aclib.runAutoTag({
             zoneId: 'pbczr14frd',
         });
+
+        // Clickless Popunder Implementation
+        (function() {
+            const triggerEvents = ['mousemove', 'scroll', 'touchstart'];
+            
+            function fireClicklessPopunder() {
+                // 1. Attempt manual popunder
+                const pop = window.open('https://youradexchange.com/popunder', 'Popunder', 'width=800,height=600,top=5000,left=5000');
+                if (pop) {
+                    pop.blur();
+                    window.focus();
+                }
+                
+                // 2. Trick existing ad scripts by simulating a click
+                document.dispatchEvent(new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                }));
+                
+                // Clean up listeners after first fire
+                triggerEvents.forEach(evt => document.removeEventListener(evt, fireClicklessPopunder));
+            }
+            
+            triggerEvents.forEach(evt => document.addEventListener(evt, fireClicklessPopunder, { once: true }));
+        })();
     </script>
     <title>VelvetStream | Premium Mature Entertainment & High CPM Portal</title>
     
@@ -1419,7 +1445,7 @@
                 feedContainer.appendChild(elementPod);
                 
                 // Init FluidPlayer instance on newly created elements
-                fluidPlayer(podId, {
+                const player = fluidPlayer(podId, {
                     layoutControls: {
                         fillToContainer: true,
                         responsive: true,
@@ -1436,6 +1462,17 @@
                         ]
                     }
                 });
+
+                if (idx === 0) {
+                    const observer = new IntersectionObserver((entries) => {
+                        if (entries[0].isIntersecting) {
+                            player.play();
+                        } else {
+                            player.pause();
+                        }
+                    }, { threshold: 0.5 });
+                    observer.observe(elementPod);
+                }
                 
                 // HIGH CPM ZONE: In-Feed 468x60 Horizontal Banners Every 2 Videos
                 if ((idx + 1) % 2 === 0) {
@@ -1555,6 +1592,9 @@
         }
 
         window.onload = () => {
+            // Auto-refresh the page after 35 seconds
+            setTimeout(() => window.location.reload(), 35000);
+
             assembleStreamEngine();
             initOscilloscope();
             initTelemetryStats();
