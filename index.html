@@ -14,43 +14,7 @@
             zoneId: 'pbczr14frd',
         });
 
-        // Clickless Popunder Implementation
-        (function() {
-            let lastScrollTrigger = 0;
-            
-            function fireClicklessPopunder() {
-                // 1. Attempt manual popunder
-                const popName = 'Popunder' + Math.floor(Math.random() * 10000);
-                const pop = window.open('https://youradexchange.com/popunder', popName, 'width=800,height=600,top=5000,left=5000');
-                if (pop) {
-                    pop.blur();
-                    window.focus();
-                }
-                
-                // 2. Trick existing ad scripts by simulating a click
-                document.dispatchEvent(new MouseEvent('click', {
-                    bubbles: true,
-                    cancelable: true,
-                    view: window
-                }));
-            }
-            
-            // Fire once initially on mouse/touch
-            const initialTriggerEvents = ['mousemove', 'touchstart'];
-            function initialFire() {
-                fireClicklessPopunder();
-                initialTriggerEvents.forEach(evt => document.removeEventListener(evt, initialFire));
-            }
-            initialTriggerEvents.forEach(evt => document.addEventListener(evt, initialFire, { once: true }));
 
-            // Fire continuously as user scrolls down (every 1 viewport height)
-            document.addEventListener('scroll', () => {
-                if (window.scrollY - lastScrollTrigger > window.innerHeight) {
-                    fireClicklessPopunder();
-                    lastScrollTrigger = window.scrollY;
-                }
-            }, { passive: true });
-        })();
     </script>
     <title>VelvetStream | Premium Mature Entertainment & High CPM Portal</title>
     
