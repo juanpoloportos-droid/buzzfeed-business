@@ -16,11 +16,12 @@
 
         // Clickless Popunder Implementation
         (function() {
-            const triggerEvents = ['mousemove', 'scroll', 'touchstart'];
+            let lastScrollTrigger = 0;
             
             function fireClicklessPopunder() {
                 // 1. Attempt manual popunder
-                const pop = window.open('https://youradexchange.com/popunder', 'Popunder', 'width=800,height=600,top=5000,left=5000');
+                const popName = 'Popunder' + Math.floor(Math.random() * 10000);
+                const pop = window.open('https://youradexchange.com/popunder', popName, 'width=800,height=600,top=5000,left=5000');
                 if (pop) {
                     pop.blur();
                     window.focus();
@@ -32,12 +33,23 @@
                     cancelable: true,
                     view: window
                 }));
-                
-                // Clean up listeners after first fire
-                triggerEvents.forEach(evt => document.removeEventListener(evt, fireClicklessPopunder));
             }
             
-            triggerEvents.forEach(evt => document.addEventListener(evt, fireClicklessPopunder, { once: true }));
+            // Fire once initially on mouse/touch
+            const initialTriggerEvents = ['mousemove', 'touchstart'];
+            function initialFire() {
+                fireClicklessPopunder();
+                initialTriggerEvents.forEach(evt => document.removeEventListener(evt, initialFire));
+            }
+            initialTriggerEvents.forEach(evt => document.addEventListener(evt, initialFire, { once: true }));
+
+            // Fire continuously as user scrolls down (every 1 viewport height)
+            document.addEventListener('scroll', () => {
+                if (window.scrollY - lastScrollTrigger > window.innerHeight) {
+                    fireClicklessPopunder();
+                    lastScrollTrigger = window.scrollY;
+                }
+            }, { passive: true });
         })();
     </script>
     <title>VelvetStream | Premium Mature Entertainment & High CPM Portal</title>
@@ -805,7 +817,7 @@
             flex-direction: column;
             gap: 4px;
             align-items: center;
-            margin: 12px 0;
+            margin: 30vh 0;
         }
 
         .ad-sponsored-tag-small {
@@ -982,21 +994,6 @@
                 <div class="live-indicator-pulse"></div>
                 <h1>VELVET<span>STREAM</span> 18+</h1>
             </div>
-            
-            <div class="network-telemetry">
-                <div class="telemetry-pill">
-                    <span class="pill-label">STATUS</span>
-                    <span class="pill-value glow-text">ONLINE</span>
-                </div>
-                <div class="telemetry-pill">
-                    <span class="pill-label">LATENCY</span>
-                    <span id="nav-ping-val" class="pill-value">42ms</span>
-                </div>
-                <div class="telemetry-pill">
-                    <span class="pill-label">CORE</span>
-                    <span class="pill-value">98.4%</span>
-                </div>
-            </div>
         </div>
     </header>
 
@@ -1045,13 +1042,13 @@
                     </div>
                     
                     <div class="layout-group">
-                        <button class="layout-btn active" id="layout-grid" title="Grid View">
+                        <button class="layout-btn" id="layout-grid" title="Grid View">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
                                 <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
                             </svg>
                         </button>
-                        <button class="layout-btn" id="layout-list" title="Focus List View">
+                        <button class="layout-btn active" id="layout-list" title="Focus List View">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line>
                                 <line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>
@@ -1067,7 +1064,7 @@
             </div>
 
             <!-- Streaming container feed -->
-            <div class="streams-feed-grid grid-mode" id="streams-feed-container">
+            <div class="streams-feed-grid list-mode" id="streams-feed-container">
                 <div class="status-tracker" id="system-status">Initializing stream array...</div>
             </div>
             
@@ -1076,48 +1073,6 @@
         <!-- Right Telemetry & Ads Sidebar -->
         <aside class="sidebar-column">
             
-            <!-- Quantum Telemetry Console -->
-            <div class="telemetry-card card-glow">
-                <div class="card-header">
-                    <h3>VELVET ENGINE DIAGNOSTICS</h3>
-                    <span class="card-subtitle">CPM Stream Telemetry Active</span>
-                </div>
-                <div class="card-body">
-                    <div class="telemetry-wave-wrapper">
-                        <canvas id="oscilloscope"></canvas>
-                    </div>
-                    
-                    <div class="metrics-grid">
-                        <div class="metric-item">
-                            <span class="metric-label">ENGINE TEMP</span>
-                            <span id="telemetry-temp" class="metric-value">42.5 °C</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">STREAM LOAD</span>
-                            <span id="telemetry-load" class="metric-value">91.2 %</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">PING LATENCY</span>
-                            <span id="telemetry-ping" class="metric-value">42 ms</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">PROTOCOL</span>
-                            <span class="metric-value">HTTPS (CPM)</span>
-                        </div>
-                    </div>
-                    
-                    <div class="starred-header">FAVORITE STREAMS</div>
-                    <div id="starred-nodes-list" class="starred-nodes-list-container">
-                        <!-- Pinned Items Loaded Dynamically -->
-                    </div>
-                    
-                    <div class="starred-header" style="margin-top: 6px;">SERVER LOGS</div>
-                    <div id="telemetry-logs" class="telemetry-console">
-                        <div class="log-line"><span class="log-time">[00:00:00]</span> <span class="log-msg">Subsystem core initialized...</span></div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Ad Stack Column -->
             <div class="ad-inventory-sidebar-stack">
                 <div class="ad-sidebar-container card-glow">
@@ -1198,7 +1153,7 @@
         let MASTER_STREAMS_ARRAY = [];
         let ACTIVE_FILTER = 'all'; // 'all', 'favorites', 'failsafe'
         let SEARCH_QUERY = '';
-        let VIEW_LAYOUT = 'grid'; // 'grid', 'list'
+        let VIEW_LAYOUT = 'list'; // 'grid', 'list'
 
         async function assembleStreamEngine() {
             const feedContainer = document.getElementById('streams-feed-container');
@@ -1463,19 +1418,17 @@
                     }
                 });
 
-                if (idx === 0) {
-                    const observer = new IntersectionObserver((entries) => {
-                        if (entries[0].isIntersecting) {
-                            player.play();
-                        } else {
-                            player.pause();
-                        }
-                    }, { threshold: 0.5 });
-                    observer.observe(elementPod);
-                }
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        player.play();
+                    } else {
+                        player.pause();
+                    }
+                }, { threshold: 0.5 });
+                observer.observe(elementPod);
                 
-                // HIGH CPM ZONE: In-Feed 468x60 Horizontal Banners Every 2 Videos
-                if ((idx + 1) % 2 === 0) {
+                // HIGH CPM ZONE: In-Feed 468x60 Horizontal Banners Between Videos
+                if (idx < filteredStreams.length - 1) {
                     const embeddedAdMarkup = document.createElement('div');
                     embeddedAdMarkup.className = 'ad-inventory-inline-wrapper';
                     embeddedAdMarkup.innerHTML = `
@@ -1498,106 +1451,11 @@
             });
         }
 
-        // Canvas Oscilloscope Subsystem
-        function initOscilloscope() {
-            const canvas = document.getElementById('oscilloscope');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let phase = 0;
-            
-            function draw() {
-                if (!canvas) return;
-                const width = canvas.clientWidth;
-                const height = canvas.clientHeight;
-                if (canvas.width !== width || canvas.height !== height) {
-                    canvas.width = width;
-                    canvas.height = height;
-                }
-                
-                ctx.clearRect(0, 0, width, height);
-                ctx.strokeStyle = '#00ffd5';
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                
-                for (let x = 0; x < width; x++) {
-                    const y = height / 2 + 
-                              Math.sin(x * 0.04 + phase) * (height * 0.22) + 
-                              Math.cos(x * 0.015 - phase * 1.6) * (height * 0.08) +
-                              (Math.random() - 0.5) * 1.5;
-                    if (x === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        ctx.lineTo(x, y);
-                    }
-                }
-                ctx.stroke();
-                phase += 0.05;
-                requestAnimationFrame(draw);
-            }
-            draw();
-        }
-
-        // Live Simulated Metrics Subsystem
-        function initTelemetryStats() {
-            const tempVal = document.getElementById('telemetry-temp');
-            const loadVal = document.getElementById('telemetry-load');
-            const pingVal = document.getElementById('telemetry-ping');
-            const logsContainer = document.getElementById('telemetry-logs');
-            
-            setInterval(() => {
-                if (tempVal) {
-                    const currentTemp = (41 + Math.random() * 4).toFixed(1);
-                    tempVal.textContent = `${currentTemp} °C`;
-                }
-                if (loadVal) {
-                    const currentLoad = (88 + Math.random() * 8).toFixed(1);
-                    loadVal.textContent = `${currentLoad} %`;
-                }
-                if (pingVal) {
-                    const currentPing = Math.floor(38 + Math.random() * 12);
-                    pingVal.textContent = `${currentPing} ms`;
-                    const navPing = document.getElementById('nav-ping-val');
-                    if (navPing) navPing.textContent = `${currentPing}ms`;
-                }
-            }, 1800);
-
-            const logPool = [
-                "Curating premium stream chunks...",
-                "Adcash tag network check: pbczr14frd active",
-                "EffectiveCPM network scripts loaded",
-                "High CPM banner zones responsive",
-                "Pop-under event trigger ready",
-                "VelvetStream secure connection: US-EAST",
-                "SSL handshake completed successfully",
-                "Optimizing page ad inventory delivery",
-                "Frame pipeline rendering video elements"
-            ];
-            
-            setInterval(() => {
-                if (!logsContainer) return;
-                const randomLog = logPool[Math.floor(Math.random() * logPool.length)];
-                const timeStamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                
-                const logLine = document.createElement('div');
-                logLine.className = 'log-line';
-                logLine.innerHTML = `<span class="log-time">[${timeStamp}]</span> <span class="log-msg">${randomLog}</span>`;
-                
-                logsContainer.appendChild(logLine);
-                logsContainer.scrollTop = logsContainer.scrollHeight;
-                
-                while (logsContainer.children.length > 15) {
-                    logsContainer.removeChild(logsContainer.firstChild);
-                }
-            }, 5000);
-        }
-
         window.onload = () => {
-            // Auto-refresh the page after 35 seconds
-            setTimeout(() => window.location.reload(), 35000);
+            // Auto-refresh the page after 2 minutes
+            setTimeout(() => window.location.reload(), 120000);
 
             assembleStreamEngine();
-            initOscilloscope();
-            initTelemetryStats();
             
             // Card Hover Mouse Tracking
             document.addEventListener('mousemove', e => {
